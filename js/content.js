@@ -2,18 +2,17 @@
 window.WEDDING = {
   config: {
     defaultLang: 'hi',
-    phone: '+918107771682',
-    phoneDisplay: '+91 8107771682',
+    phone: '+919079638720',
+    phoneDisplay: '+91 9079638720',
     // Add a URL to also POST RSVPs as JSON ({name, choice, guests, lang}). Guests always send their reply by WhatsApp.
     rsvpEndpoint: null,
     maps: {
-      wedding: 'https://www.google.com/maps/search/?api=1&query=Milan+Resort+Kota+Rajasthan',
-      reception: 'https://www.google.com/maps/search/?api=1&query=Hotel+Yuvraj+Grand+Vijaynagar+Jabalpur'
+      wedding: 'https://www.google.com/maps/search/?api=1&query=Milan+Resort+Kota+Rajasthan'
     }
   },
   hi: {
     meta: { title: 'चिनाब एवं सिद्धार्थ | शुभ विवाह' },
-    nav: { home: 'होम', wedding: 'विवाह', reception: 'स्वागत', rsvp: 'RSVP', menu: 'मेनू', close: 'बंद करें' }, 
+    nav: { home: 'होम', wedding: 'विवाह', rsvp: 'RSVP', menu: 'मेनू', close: 'बंद करें' }, 
     opening: { blessing: 'शुभ विवाह', bride: 'चिनाब', and: 'एवं', groom: 'सिद्धार्थ', hint: 'ऊपर स्क्रॉल करें' },
     fort: { invocation: '॥ श्री गणेशाय नमः ॥' },
     sound: { label: 'संगीत चालू या बंद करें' },
@@ -34,17 +33,13 @@ window.WEDDING = {
       bride: { name: 'चिनाब', parents: 'पुत्री श्रीमती अनीता त्रिवेदी एवं श्री सुनील त्रिवेदी' },
       groom: { name: 'सिद्धार्थ', parents: 'पुत्र श्रीमती कृष्णा भट्टाचार्य एवं स्वर्गीय श्री रंजन भट्टाचार्य' }
     },
-    route: { line: 'और कहानी आगे बढ़ती है, नर्मदा की नगरी की ओर।', from: 'कोटा', to: 'जबलपुर', river: 'नर्मदा' },
-    reception: { heading: 'प्रीतिभोज', date: '20 जनवरी 2027', venue: 'होटल युवराज ग्रैंड', place: 'विजयनगर, जबलपुर', directions: 'नक्शे पर देखें', art: 'भेड़ाघाट की संगमरमरी चट्टानों के बीच नर्मदा पर एक नाव' },
     rsvp: {
       heading: 'आपकी उपस्थिति हमारे इस विशेष दिन को और भी सुंदर बना देगी', label: 'RSVP', contact: 'संपर्क', cta: 'उपस्थिति की पुष्टि करें',
       lampPrompt: 'दीया जलाएँ', lampLabel: 'दीया जलाएँ',
-      optBoth: 'दोनों कार्यक्रम', optWed: 'केवल विवाह', optRec: 'केवल प्रीतिभोज', optNo: 'नहीं आ पाएँगे',
+      optYes: 'आएँगे', optNo: 'नहीं आएँगे',
       guestsLabel: 'कितने व्यक्ति', guestsDec: 'एक व्यक्ति कम करें', guestsInc: 'एक व्यक्ति बढ़ाएँ',
       nameLabel: 'आपका नाम (वैकल्पिक)', whatsapp: 'WhatsApp पर उत्तर भेजें',
-      msgBoth: 'नमस्ते! निमंत्रण के लिए धन्यवाद। हम {n} व्यक्ति विवाह और प्रीतिभोज, दोनों में आएँगे।',
-      msgWed: 'नमस्ते! निमंत्रण के लिए धन्यवाद। हम {n} व्यक्ति कोटा में विवाह में आएँगे।',
-      msgRec: 'नमस्ते! निमंत्रण के लिए धन्यवाद। हम {n} व्यक्ति जबलपुर में प्रीतिभोज में आएँगे।',
+      msgYes: 'नमस्ते! निमंत्रण के लिए धन्यवाद। हम {n} व्यक्ति आएँगे।',
       msgNo: 'नमस्ते! निमंत्रण के लिए धन्यवाद। क्षमा करें, हम नहीं आ पाएँगे, पर हमारा आशीर्वाद आपके साथ है।',
       msgName: '— {name}'
     },
@@ -52,7 +47,7 @@ window.WEDDING = {
   },
   en: {
     meta: { title: 'Chinab & Siddharth | Wedding Invitation' },
-    nav: { home: 'Home', wedding: 'Wedding', reception: 'Reception', rsvp: 'RSVP', menu: 'Menu', close: 'Close' },
+    nav: { home: 'Home', wedding: 'Wedding', rsvp: 'RSVP', menu: 'Menu', close: 'Close' },
     opening: { blessing: 'The auspicious wedding of', bride: 'Chinab', and: '&', groom: 'Siddharth', hint: 'Scroll up' },
     fort: { invocation: 'Om Shree Ganeshay Namah' },
     sound: { label: 'Turn music on or off' },
@@ -73,17 +68,13 @@ window.WEDDING = {
       bride: { name: 'Chinab', parents: 'D/O Smt. Anita Trivedi & Mr Sunil Trivedi', address: 'House No: 1-D-1, Jawahar Nagar, Bundi, Rajasthan, 324002' },
       groom: { name: 'Siddharth', parents: 'S/O Smt. Krishna Bhattacharya & Late Mr Ranjan Bhattacharya', address: 'House No: 1561/4, Yadav Colony, Jabalpur, MP, 482001' }
     },
-    route: { line: 'And the story travels on, to the city of the Narmada.', from: 'Kota', to: 'Jabalpur', river: 'Narmada' },
-    reception: { heading: 'Reception', date: 'January 20, 2027', venue: 'Hotel Yuvraj Grand', place: 'Vijaynagar, Jabalpur', directions: 'View on map', art: 'A boat on the Narmada among the marble rocks of Bhedaghat' },
     rsvp: {
       heading: 'Your presence would mean so much to us', label: 'RSVP', contact: 'Contact', cta: 'Confirm your attendance',
       lampPrompt: 'Light the diya', lampLabel: 'Light the diya',
-      optBoth: 'Both events', optWed: 'Wedding only', optRec: 'Reception only', optNo: 'Can’t make it',
+      optYes: 'Will come', optNo: 'Won’t come',
       guestsLabel: 'Number of guests', guestsDec: 'One guest fewer', guestsInc: 'One guest more',
       nameLabel: 'Your name (optional)', whatsapp: 'Reply on WhatsApp',
-      msgBoth: 'Hello! Thank you for the invitation. We will attend both the wedding and the reception: {n} guest(s).',
-      msgWed: 'Hello! Thank you for the invitation. We will attend the wedding in Kota: {n} guest(s).',
-      msgRec: 'Hello! Thank you for the invitation. We will attend the reception in Jabalpur: {n} guest(s).',
+      msgYes: 'Hello! Thank you for the invitation. We will come: {n} guest(s).',
       msgNo: 'Hello! Thank you for the invitation. Sadly we can’t make it, but our blessings are with you.',
       msgName: '— {name}'
     },

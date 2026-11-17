@@ -18,4 +18,4 @@ A static site: upload this folder to any static host (Netlify, Vercel, GitHub Pa
 
 ## Artwork
 
-`assets/scene/` holds depth layers cut from the two supplied paintings by `tools/build_scene1.py`, `tools/build_scene2.py` and `tools/bake_plates.py`. `assets/art/` holds the murals, jharokha and Jabalpur scene painted by `tools/art.mjs` and rendered through headless Chrome with `tools/render_art.sh`.
+`assets/scene/` holds depth layers cut from the two supplied paintings by `tools/build_scene1.py`, `tools/build_scene2.py` and `tools/bake_plates.py`. `assets/art/` holds the murals, jharokha painted by `tools/art.mjs` and rendered through headless Chrome with `tools/render_art.sh`.

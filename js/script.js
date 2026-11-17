@@ -264,21 +264,15 @@
   /* ---------- Scroll machinery: one rAF, one read of scroll per frame ---------- */
   const journey = $('#home'), openingText = $('#openingText'), hintEl = $('#hint'), fortTitle = $('#fortTitle'), birds = $('#birds');
   const world = $('#world'), wallBody = $('.wall__body'), nav = $('#nav');
-  const routeMap = $('#routeMap'), routeLine = $('#routeLine'), facade = $('#facade');
+  const facade = $('#facade');
   let stage = null, smooth = 0, vw = innerWidth, vh = innerHeight, journeyMax = 1, journeyTop = 0;
   const drifters = [];
 
-  const riverImg = $('#reception .reception__art img:last-child');
-  // The RSVP's river continues this painting at the same scale
-  const syncRiver = () => $('#rsvp').style.setProperty('--river-w', `${riverImg.getBoundingClientRect().width}px`);
-  riverImg.addEventListener('load', syncRiver);
   function measure() {
     vw = innerWidth; vh = innerHeight;
-    syncRiver();
     journeyTop = journey.offsetTop;
     journeyMax = Math.max(1, journey.offsetHeight - vh);
     if (stage) stage.resize(vw, Math.max(vh, world.clientHeight));
-    if (routeLine.getTotalLength) routeMap.style.setProperty('--len', routeLine.getTotalLength().toFixed(1));
   }
 
   let lastNow = performance.now(), slowFrames = 0, sampled = 0;
@@ -324,10 +318,6 @@
       d.el.style.translate = `0 ${off.toFixed(1)}px`;
     }
 
-    /* The route draws itself */
-    const rr = routeMap.getBoundingClientRect();
-    if (rr.bottom > 0 && rr.top < vh) routeMap.style.setProperty('--p', ease(seg(vh - rr.top, vh * .2, rr.height + vh * .45)).toFixed(3));
-
     if (!calm) requestAnimationFrame(tick);
   }
 
@@ -364,7 +354,7 @@
     sections.forEach(s => spy.observe(s));
   }
   function currentSection() {
-    const all = ['#home', '.wall', '#families', '.route', '#reception', '#rsvp'].map(s => $(s));
+    const all = ['#home', '.wall', '#families', '#rsvp'].map(s => $(s));
     return all.filter(s => s.getBoundingClientRect().top <= vh * .5).pop() || all[0];
   }
 
@@ -387,7 +377,7 @@
   /* ---------- RSVP ---------- */
   const finale = $('#rsvp'), lampBtn = $('#lampBtn'), replyBlock = $('#rsvpBlock'), chips = $$('.chip'), guestsRow = $('#guestsRow');
   const gDec = $('#gDec'), gInc = $('#gInc'), gCount = $('#gCount'), gName = $('#gName'), waLink = $('#waLink');
-  const replyKeys = { both: 'rsvp.msgBoth', wed: 'rsvp.msgWed', rec: 'rsvp.msgRec', no: 'rsvp.msgNo' };
+  const replyKeys = { yes: 'rsvp.msgYes', no: 'rsvp.msgNo' };
   let replyChoice = null, replyGuests = 2;
   function syncRsvpCopy() {
     const tel = DATA.config.phone, disp = DATA.config.phoneDisplay;
@@ -470,7 +460,6 @@
   /* ---------- Start ---------- */
   buildDecor();
   buildEvents();
-  $('#mapReception').href = DATA.config.maps.reception;
   setupObservers();
   applyLanguage(lang, { refreshLayout: false });
 

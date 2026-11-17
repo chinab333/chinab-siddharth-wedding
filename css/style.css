@@ -140,27 +140,9 @@ main { position: relative; z-index: 1; }
 .house__addr { font-size: .84rem; line-height: 1.55; opacity: .86; margin-top: .3em; }
 
 /* ---------- Across India, to the Narmada ---------- */
-.route { position: relative; background: linear-gradient(#123f46, #172c4e 62%, #1a2b52); padding: clamp(70px, 13vh, 140px) var(--gutter) clamp(30px, 6vh, 70px); text-align: center; overflow: hidden; }
-.route__map { display: block; width: 100%; max-width: 1120px; margin: 0 auto; overflow: visible; }
-.route__label { font-family: var(--display); font-size: 36px; fill: var(--cream); paint-order: stroke; stroke: #16304c; stroke-width: 6px; }
-.route__river-label { font-family: var(--body); font-size: 22px; fill: #a7dbcd; paint-order: stroke; stroke: #16304c; stroke-width: 5px; }
-.route__line { stroke-dasharray: var(--len, 1000); stroke-dashoffset: calc(var(--len, 1000) * (1 - var(--p, 0))); }
-.route__line-text { font-family: var(--display); font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.35; max-width: 24em; margin: .5em auto 0; }
-
-/* ---------- Reception: Jabalpur, the marble rocks ---------- */
-.reception { position: relative; min-height: 118vh; min-height: 118svh; overflow: hidden; background: #1a2b52; margin-top: -1px; }
-.reception__art { position: absolute; inset: 0; }
-.reception__art img { position: absolute; left: 50%; bottom: 0; width: auto; min-width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 50% 100%; transform: translateX(-50%); will-change: transform; }
-.reception__text { position: relative; padding: clamp(80px, 13vh, 150px) var(--gutter) 0; text-align: center; color: var(--cream); text-shadow: 0 2px 20px rgba(14, 20, 50, .85); }
-.reception__text h2 { font-size: clamp(2.6rem, 6.4vw, 5.6rem); line-height: 1.15; }
-.reception__date { font-size: clamp(1.25rem, 2vw, 1.7rem); margin-top: .35em; color: var(--gold-light); }
-.reception__venue { font-family: var(--display); font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.3; margin-top: .25em; }
-.reception__place { font-size: 1.1rem; }
-
 /* ---------- Finale: the same lake, the sun gone down ---------- */
-/* The river runs on from the reception painting; --river-w is set from its rendered width so the seam lines up */
-.finale { position: relative; min-height: 100vh; min-height: 100svh; margin-top: -6px; overflow: hidden; background: #0f3344; }
-.finale__river { position: absolute; left: 50%; top: calc(6px - var(--river-w, 178vh) * 12 / 2400); width: var(--river-w, 178vh); max-width: none; transform: translateX(-50%); }
+.finale { position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden; background: #0f3344; }
+.finale__river { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .finale__text { position: relative; z-index: 2; padding: clamp(120px, 27vh, 280px) var(--gutter) 48px; text-align: center; text-shadow: 0 1px 12px rgba(6, 22, 32, .9); transition: padding-top .6s cubic-bezier(.2, .7, .2, 1); }
 .is-lit .finale__text { padding-top: clamp(78px, 11vh, 120px); }
 .finale__text h2 { font-size: clamp(2.05rem, 4vw, 3.8rem); line-height: 1.22; max-width: 15em; margin: 0 auto; }
@@ -231,9 +213,6 @@ main { position: relative; z-index: 1; }
   .jharokha__text h3 { font-size: clamp(2.6rem, 13vw, 3.6rem); }
   .jharokha__text p { font-size: clamp(.92rem, 4.3vw, 1.15rem); }
   .win:nth-child(n+4) { display: none; }
-  .route__label { font-size: 52px; }
-  .route__river-label { font-size: 34px; }
-  .reception { min-height: 110svh; }
   }
 
 /* ---------- Calm mode: reduced motion, or no WebGL2 ---------- */
@@ -248,6 +227,5 @@ main { position: relative; z-index: 1; }
 .calm .rsvp-lamp__glow, .calm .rsvp-lamp__wick, .calm .finale__text { transition: none; }
 .calm .win { --on: 1; }
 .calm .house { --lit: 1; }
-.calm .route__line { stroke-dashoffset: 0; }
 
 .nojs { position: relative; z-index: 50; padding: 90px var(--gutter); background: var(--indigo); }
