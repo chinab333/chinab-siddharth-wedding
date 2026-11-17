@@ -14,7 +14,7 @@ A static site: upload this folder to any static host (Netlify, Vercel, GitHub Pa
 
 ## Music
 
-`assets/audio/wedding.mp3` is "Indian Wedding Celebration" by OpenMindAudio from Pixabay (https://pixabay.com/music/india-indian-wedding-celebration-618295/), used under the Pixabay Content License (free to use, no attribution required). The page tries to start it on arrival; browsers that block sound start it on the visitor's first tap or key press. The speaker button in the top bar turns it on and off, and the choice is remembered per device.
+`assets/audio/wedding.mp3` is the Ghoomar track supplied by the family. The page tries to start it on arrival; browsers that block sound start it on the visitor's first tap or key press. The speaker button in the top bar turns it on and off, and the choice is remembered per device. It loops, so keep the file short.
 
 ## Artwork
 
