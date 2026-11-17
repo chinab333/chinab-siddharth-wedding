@@ -28,24 +28,21 @@
   if (!DATA[lang]) lang = DATA.config.defaultLang;
   const t = key => key.split('.').reduce((o, k) => (o == null ? o : o[k]), DATA[lang]) ?? '';
 
-  /* Event cards: same layout as the wedding card; text is filled in by applyLanguage via data-i18n */
+  /* Schedule: a borderless table, one block per date; text is filled in by applyLanguage via data-i18n */
   function buildEvents() {
     const host = $('#events');
-    DATA[lang].events.items.forEach((_, i) => {
-      const k = `events.items.${i}`;
-      const el = document.createElement('div');
-      el.className = 'when';
-      el.innerHTML = `<h3 class="when__label" data-i18n="${k}.heading"></h3>
-        <div class="when__date rv"><span class="when__day" data-i18n="${k}.day"></span><span class="when__my" data-i18n="${k}.monthYear"></span></div>
-        <div class="when__rest rv">
-          <p class="when__line" data-i18n="${k}.line"></p>
-          <p class="when__venue" data-i18n="${k}.venue"></p>
-          <p class="when__line" data-i18n="${k}.place"></p>
-          <a class="textlink" target="_blank" rel="noopener" data-i18n="events.directions"></a>
-        </div>`;
-      $('a', el).href = DATA.config.maps.wedding;
-      host.append(el);
-    });
+    const rows = DATA[lang].events.days.map((day, d) => {
+      const k = `events.days.${d}`;
+      return day.items.map((_, i) => `<tr>${i === 0 ? `<th class="sched__date" scope="rowgroup" rowspan="${day.items.length}"><span class="sched__day" data-i18n="${k}.day"></span><span class="sched__my" data-i18n="${k}.monthYear"></span><span class="sched__wd" data-i18n="${k}.weekday"></span></th>` : ''}<td class="sched__ev"><span class="sched__name" data-i18n="${k}.items.${i}.name"></span><span class="sched__time" data-i18n="${k}.items.${i}.time"></span></td></tr>`).join('');
+    }).join('<tr class="sched__gap" aria-hidden="true"><td colspan="2"></td></tr>');
+    host.innerHTML = `<table class="sched rv"><tbody>${rows}</tbody></table>
+      <div class="venue rv">
+        <p class="venue__label" data-i18n="events.venueLabel"></p>
+        <p class="when__venue" data-i18n="events.venue"></p>
+        <p class="when__line" data-i18n="events.place"></p>
+        <a class="textlink" target="_blank" rel="noopener" data-i18n="events.directions"></a>
+      </div>`;
+    $('a', host).href = DATA.config.maps.wedding;
   }
 
   function applyLanguage(next, { refreshLayout = true } = {}) {
@@ -452,23 +449,23 @@
   });
   if (reducedMotion.matches) lightLamp(false);
 
-  /* ---------- Shehnai music: off until the visitor turns it on (browsers block autoplay) ---------- */
-  const audio = $('#shehnai'), soundBtn = $('#soundBtn');
-  const setSound = on => {
-    soundBtn.setAttribute('aria-pressed', String(on));
-    store.set('sound', on ? 'on' : 'off');
-  };
-  const playSound = () => audio.play().then(() => setSound(true)).catch(() => setSound(false));
+  /* ---------- Music: tries to start on arrival; browsers that block sound start it on the first tap or key ---------- */
+  const audio = $('#bgm'), soundBtn = $('#soundBtn');
   audio.volume = .5;
+  const syncSound = () => soundBtn.setAttribute('aria-pressed', String(!audio.paused));
+  audio.addEventListener('play', syncSound); audio.addEventListener('pause', syncSound);
   soundBtn.addEventListener('click', () => {
-    if (audio.paused) playSound(); else { audio.pause(); setSound(false); }
+    if (audio.paused) { store.set('sound', 'on'); audio.play().catch(() => {}); } else { store.set('sound', 'off'); audio.pause(); }
   });
-  // A visitor who left it on gets music from their first tap or scroll, which is when browsers allow it
   if (store.get('sound') !== 'off') {
-    const start = () => { removeEventListener('pointerdown', start); removeEventListener('keydown', start); if (store.get('sound') !== 'off' && audio.paused) playSound(); };
-    addEventListener('pointerdown', start); addEventListener('keydown', start);
+    const kick = () => audio.play().then(() => { ['pointerdown', 'keydown', 'touchend'].forEach(e => removeEventListener(e, kick)); }).catch(() => {});
+    audio.play().catch(() => { ['pointerdown', 'keydown', 'touchend'].forEach(e => addEventListener(e, kick, { passive: true })); });
   }
-  document.addEventListener('visibilitychange', () => { if (document.hidden) audio.pause(); else if (soundBtn.getAttribute('aria-pressed') === 'true') audio.play().catch(() => {}); });
+  // Pause while the tab is hidden, resume only if it was playing
+  let wasPlaying = false;
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { wasPlaying = !audio.paused; audio.pause(); } else if (wasPlaying) audio.play().catch(() => {});
+  });
 
   /* ---------- Start ---------- */
   buildDecor();

@@ -16,20 +16,18 @@ window.WEDDING = {
     nav: { home: 'होम', wedding: 'विवाह', reception: 'स्वागत', rsvp: 'RSVP', menu: 'मेनू', close: 'बंद करें' }, 
     opening: { blessing: 'शुभ विवाह', bride: 'चिनाब', and: 'एवं', groom: 'सिद्धार्थ', hint: 'ऊपर स्क्रॉल करें' },
     fort: { invocation: '॥ श्री गणेशाय नमः ॥' },
-    sound: { label: 'शहनाई संगीत चालू या बंद करें' },
+    sound: { label: 'संगीत चालू या बंद करें' },
     announce: {
       lead: 'दोनों परिवारों के आशीर्वाद के साथ',
       bride: 'चिनाब', and: 'एवं', groom: 'सिद्धार्थ',
       message: 'अपने जीवन के इस मंगल अवसर पर आपको सादर आमंत्रित करते हैं। आपकी उपस्थिति और स्नेह से यह दिन और भी शुभ हो जाएगा।'
     },
     events: {
-      directions: 'नक्शे पर देखें',
-      items: [
-        { heading: 'विनायक स्थापना', day: '17', monthYear: 'जनवरी 2027', line: 'रविवार', venue: 'मिलन रिज़ॉर्ट', place: 'कोटा, राजस्थान' },
-        { heading: 'डीजे नाइट', day: '17', monthYear: 'जनवरी 2027', line: 'रविवार', venue: 'मिलन रिज़ॉर्ट', place: 'कोटा, राजस्थान' },
-        { heading: 'हल्दी', day: '18', monthYear: 'जनवरी 2027', line: 'सोमवार', venue: 'मिलन रिज़ॉर्ट', place: 'कोटा, राजस्थान' },
-        { heading: 'विवाह', day: '18', monthYear: 'जनवरी 2027', line: 'सोमवार, प्रातः 11 बजे से', venue: 'मिलन रिज़ॉर्ट', place: 'कोटा, राजस्थान' }
-      ]
+      days: [
+        { day: '17', monthYear: 'जनवरी 2027', weekday: 'रविवार', items: [{ name: 'विनायक स्थापना' }, { name: 'डीजे नाइट' }] },
+        { day: '18', monthYear: 'जनवरी 2027', weekday: 'सोमवार', items: [{ name: 'हल्दी' }, { name: 'विवाह', time: 'प्रातः 11 बजे से' }] }
+      ],
+      venueLabel: 'स्थान', venue: 'मिलन रिज़ॉर्ट', place: 'कोटा, राजस्थान', directions: 'नक्शे पर देखें'
     },
     families: {
       heading: 'दो घर, एक उत्सव',
@@ -57,20 +55,18 @@ window.WEDDING = {
     nav: { home: 'Home', wedding: 'Wedding', reception: 'Reception', rsvp: 'RSVP', menu: 'Menu', close: 'Close' },
     opening: { blessing: 'The auspicious wedding of', bride: 'Chinab', and: '&', groom: 'Siddharth', hint: 'Scroll up' },
     fort: { invocation: 'Om Shree Ganeshay Namah' },
-    sound: { label: 'Turn shehnai music on or off' },
+    sound: { label: 'Turn music on or off' },
     announce: {
       lead: 'Together with their families',
       bride: 'Chinab', and: '&', groom: 'Siddharth',
       message: 'cordially invite you to join their wedding celebrations on'
     },
     events: {
-      directions: 'View on map',
-      items: [
-        { heading: 'Vinayak Sthapna', day: '17', monthYear: 'January 2027', line: 'Sunday', venue: 'Milan Resort', place: 'Kota, Rajasthan' },
-        { heading: 'DJ Night', day: '17', monthYear: 'January 2027', line: 'Sunday', venue: 'Milan Resort', place: 'Kota, Rajasthan' },
-        { heading: 'Haldi', day: '18', monthYear: 'January 2027', line: 'Monday', venue: 'Milan Resort', place: 'Kota, Rajasthan' },
-        { heading: 'Shadi', day: '18', monthYear: 'January 2027', line: 'Monday, 11 AM', venue: 'Milan Resort', place: 'Kota, Rajasthan' }
-      ]
+      days: [
+        { day: '17', monthYear: 'January 2027', weekday: 'Sunday', items: [{ name: 'Vinayak Sthapna' }, { name: 'DJ Night' }] },
+        { day: '18', monthYear: 'January 2027', weekday: 'Monday', items: [{ name: 'Haldi' }, { name: 'Shadi', time: '11 AM' }] }
+      ],
+      venueLabel: 'Venue', venue: 'Milan Resort', place: 'Kota, Rajasthan', directions: 'View on map'
     },
     families: {
       heading: 'Two homes, one celebration',
