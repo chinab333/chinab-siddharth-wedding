@@ -40,6 +40,9 @@
 </header>
 
 <!-- The painted world behind the journey: first paint is a still, then the WebGL camera takes over -->
+<!-- Browsers block autoplay: this cover (shown only then) turns the first tap into the music's start -->
+<button class="cover" id="cover" type="button"><span class="cover__ring" aria-hidden="true"></span><span class="cover__text" data-i18n="cover.tap"></span></button>
+
 <div class="world" id="world" aria-hidden="true">
   <picture>
     <source media="(max-aspect-ratio: 3/5)" srcset="assets/scene/lake-still-portrait.webp">
