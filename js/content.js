@@ -16,6 +16,7 @@ window.WEDDING = {
     opening: { blessing: 'शुभ विवाह', bride: 'चिनाब', and: 'एवं', groom: 'सिद्धार्थ', hint: 'ऊपर स्क्रॉल करें' },
     fort: { invocation: '॥ श्री गणेशाय नमः ॥' },
     sound: { label: 'संगीत चालू या बंद करें' },
+    cover: { tap: 'खोलने के लिए टैप करें' },
     announce: {
       lead: 'दोनों परिवारों के आशीर्वाद के साथ',
       bride: 'चिनाब', and: 'एवं', groom: 'सिद्धार्थ',
@@ -51,6 +52,7 @@ window.WEDDING = {
     opening: { blessing: 'The auspicious wedding of', bride: 'Chinab', and: '&', groom: 'Siddharth', hint: 'Scroll up' },
     fort: { invocation: 'Om Shree Ganeshay Namah' },
     sound: { label: 'Turn music on or off' },
+    cover: { tap: 'Tap to open' },
     announce: {
       lead: 'Together with their families',
       bride: 'Chinab', and: '&', groom: 'Siddharth',

@@ -447,9 +447,13 @@
   soundBtn.addEventListener('click', () => {
     if (audio.paused) { store.set('sound', 'on'); audio.play().catch(() => {}); } else { store.set('sound', 'off'); audio.pause(); }
   });
+  // Autoplay is usually blocked, so the cover asks for one tap; that tap starts the music and lifts the cover.
+  const cover = $('#cover'), root = document.documentElement;
+  const liftCover = () => { root.classList.remove('has-cover'); cover.classList.add('is-gone'); };
+  audio.addEventListener('play', liftCover);
+  cover.addEventListener('click', () => { audio.play().catch(() => {}); liftCover(); });
   if (store.get('sound') !== 'off') {
-    const kick = () => audio.play().then(() => { ['pointerdown', 'keydown', 'touchend'].forEach(e => removeEventListener(e, kick)); }).catch(() => {});
-    audio.play().catch(() => { ['pointerdown', 'keydown', 'touchend'].forEach(e => addEventListener(e, kick, { passive: true })); });
+    audio.play().catch(() => { root.classList.add('has-cover'); });
   }
   // Pause while the tab is hidden, resume only if it was playing
   let wasPlaying = false;

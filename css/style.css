@@ -229,3 +229,15 @@ main { position: relative; z-index: 1; }
 .calm .house { --lit: 1; }
 
 .nojs { position: relative; z-index: 50; padding: 90px var(--gutter); background: var(--indigo); }
+
+/* Tap-to-open cover: translucent, sits under the nav so the language switch stays reachable */
+.cover { display: none; position: fixed; inset: 0; z-index: 35; flex-direction: column; align-items: center; justify-content: center; gap: 22px; width: 100%; border: 0; padding: 0; cursor: pointer; color: var(--cream); font: inherit; background: rgba(19, 22, 46, .5); -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px); text-shadow: 0 1px 10px rgba(6, 10, 26, .7); transition: opacity .7s ease, visibility .7s; animation: cover-in .6s ease both; -webkit-tap-highlight-color: transparent; }
+.has-cover .cover { display: flex; }
+.has-cover { overflow: hidden; }
+.cover.is-gone { opacity: 0; visibility: hidden; pointer-events: none; }
+.cover__text { font-family: var(--display); font-size: clamp(1.5rem, 5.5vw, 2.4rem); letter-spacing: .04em; }
+.cover__ring { width: 58px; height: 58px; border-radius: 50%; border: 1.5px solid var(--gold-light); box-shadow: 0 0 0 0 rgba(230, 198, 113, .5); animation: cover-pulse 2.2s ease-out infinite; }
+.cover:focus-visible { outline: 2px solid var(--gold-light); outline-offset: -8px; }
+@keyframes cover-in { from { opacity: 0; } }
+@keyframes cover-pulse { to { box-shadow: 0 0 0 26px rgba(230, 198, 113, 0); } }
+@media (prefers-reduced-motion: reduce) { .cover__ring { animation: none; } }
