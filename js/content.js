@@ -25,14 +25,14 @@ window.WEDDING = {
     events: {
       days: [
         { day: '17', monthYear: 'जनवरी 2027', weekday: 'रविवार', items: [{ name: 'विनायक स्थापना' }, { name: 'डीजे नाइट' }] },
-        { day: '18', monthYear: 'जनवरी 2027', weekday: 'सोमवार', items: [{ name: 'हल्दी' }, { name: 'विवाह', time: 'प्रातः 11 बजे से' }] }
+        { day: '18', monthYear: 'जनवरी 2027', weekday: 'सोमवार', items: [{ name: 'हल्दी' }, { name: 'विवाह' }] }
       ],
       venueLabel: 'स्थान', venue: 'मिलन रिज़ॉर्ट', place: 'कोटा, राजस्थान', directions: 'नक्शे पर देखें'
     },
     families: {
       heading: 'दो घर, एक उत्सव',
-      bride: { name: 'चिनाब', parents: 'पुत्री श्रीमती अनीता त्रिवेदी एवं श्री सुनील त्रिवेदी' },
-      groom: { name: 'सिद्धार्थ', parents: 'पुत्र श्रीमती कृष्णा भट्टाचार्य एवं स्वर्गीय श्री रंजन भट्टाचार्य' }
+      bride: { name: 'चिनाब', parents: ' ' },
+      groom: { name: 'सिद्धार्थ', parents: ' ' }
     },
     rsvp: {
       heading: 'आपकी उपस्थिति हमारे इस विशेष दिन को और भी सुंदर बना देगी', label: 'RSVP', contact: 'संपर्क', cta: 'उपस्थिति की पुष्टि करें',
@@ -61,14 +61,14 @@ window.WEDDING = {
     events: {
       days: [
         { day: '17', monthYear: 'January 2027', weekday: 'Sunday', items: [{ name: 'Vinayak Sthapna' }, { name: 'DJ Night' }] },
-        { day: '18', monthYear: 'January 2027', weekday: 'Monday', items: [{ name: 'Haldi' }, { name: 'Shadi', time: '11 AM' }] }
+        { day: '18', monthYear: 'January 2027', weekday: 'Monday', items: [{ name: 'Haldi' }, { name: 'Shadi' }] }
       ],
       venueLabel: 'Venue', venue: 'Milan Resort', place: 'Kota, Rajasthan', directions: 'View on map'
     },
     families: {
       heading: 'Two homes, one celebration',
-      bride: { name: 'Chinab', parents: 'D/O Smt. Anita Trivedi & Mr Sunil Trivedi', address: 'House No: 1-D-1, Jawahar Nagar, Bundi, Rajasthan, 324002' },
-      groom: { name: 'Siddharth', parents: 'S/O Smt. Krishna Bhattacharya & Late Mr Ranjan Bhattacharya', address: 'House No: 1561/4, Yadav Colony, Jabalpur, MP, 482001' }
+      bride: { name: 'Chinab', parents: ' ' },
+      groom: { name: 'Siddharth', parents: ' ' }
     },
     rsvp: {
       heading: 'Your presence would mean so much to us', label: 'RSVP', contact: 'Contact', cta: 'Confirm your attendance',
