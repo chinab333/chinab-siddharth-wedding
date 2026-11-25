@@ -282,14 +282,26 @@ main { position: relative; z-index: 1; }
 
 .nojs { position: relative; z-index: 50; padding: 90px var(--gutter); background: var(--indigo); }
 
-/* Tap-to-open cover: translucent, sits under the nav so the language switch stays reachable */
-.cover { display: none; position: fixed; inset: 0; z-index: 35; flex-direction: column; align-items: center; justify-content: center; gap: 22px; width: 100%; border: 0; padding: 0; cursor: pointer; color: var(--cream); font: inherit; background: rgba(19, 22, 46, .5); -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px); text-shadow: 0 1px 10px rgba(6, 10, 26, .7); transition: opacity .7s ease, visibility .7s; animation: cover-in .6s ease both; -webkit-tap-highlight-color: transparent; }
-.has-cover .cover { display: flex; }
+/* Tap-to-open cover: two translucent, straight-edged doors hinged at the outer edges; the tap swings them open.
+   It sits under the nav so the language switch stays reachable. */
+.cover { display: none; position: fixed; inset: 0; z-index: 35; width: 100%; border: 0; padding: 0; cursor: pointer; color: var(--cream); font: inherit; perspective: 1600px; overflow: hidden; text-shadow: 0 1px 10px rgba(6, 10, 26, .7); -webkit-tap-highlight-color: transparent; transition: visibility 0s 1.3s; }
+.has-cover .cover { display: block; }
 .has-cover { overflow: hidden; }
-.cover.is-gone { opacity: 0; visibility: hidden; pointer-events: none; }
+.cover__door { position: absolute; top: 0; bottom: 0; width: 50%; background: rgba(19, 22, 46, .5); -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px); backface-visibility: hidden; transition: transform 1.2s cubic-bezier(.65, 0, .25, 1), opacity .5s ease .8s; }
+.cover__door--l { left: 0; transform-origin: 0 50%; box-shadow: inset -1px 0 0 rgba(230, 198, 113, .55); }
+.cover__door--r { right: 0; transform-origin: 100% 50%; box-shadow: inset 1px 0 0 rgba(230, 198, 113, .55); }
+.cover__label { position: absolute; left: 0; right: 0; top: 50%; display: flex; flex-direction: column; align-items: center; gap: 22px; transform: translateY(-50%); transition: opacity .35s ease; pointer-events: none; }
 .cover__text { font-family: var(--display); font-size: clamp(1.5rem, 5.5vw, 2.4rem); letter-spacing: .04em; }
 .cover__ring { width: 58px; height: 58px; border-radius: 50%; border: 1.5px solid var(--gold-light); box-shadow: 0 0 0 0 rgba(230, 198, 113, .5); animation: cover-pulse 2.2s ease-out infinite; }
 .cover:focus-visible { outline: 2px solid var(--gold-light); outline-offset: -8px; }
-@keyframes cover-in { from { opacity: 0; } }
+.cover.is-gone { visibility: hidden; pointer-events: none; }
+.cover.is-gone .cover__label { opacity: 0; }
+.cover.is-gone .cover__door--l { transform: rotateY(100deg); opacity: 0; }
+.cover.is-gone .cover__door--r { transform: rotateY(-100deg); opacity: 0; }
 @keyframes cover-pulse { to { box-shadow: 0 0 0 26px rgba(230, 198, 113, 0); } }
-@media (prefers-reduced-motion: reduce) { .cover__ring { animation: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .cover__ring { animation: none; }
+  .cover__door { transition: opacity .5s ease; }
+  .cover.is-gone .cover__door--l, .cover.is-gone .cover__door--r { transform: none; opacity: 0; }
+  .cover { transition-delay: .5s; }
+}
