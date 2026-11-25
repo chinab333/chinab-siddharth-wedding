@@ -489,7 +489,7 @@
   });
   if (reducedMotion.matches) lightLamp(false);
 
-  /* ---------- Music: tries to start on arrival; browsers that block sound start it on the first tap or key ---------- */
+  /* ---------- Music: starts on the tap that opens the cover ---------- */
   const audio = $('#bgm'), soundBtn = $('#soundBtn');
   audio.volume = .5;
   const syncSound = () => soundBtn.setAttribute('aria-pressed', String(!audio.paused));
@@ -497,15 +497,15 @@
   soundBtn.addEventListener('click', () => {
     if (audio.paused) { store.set('sound', 'on'); audio.play().catch(() => {}); } else { store.set('sound', 'off'); audio.pause(); }
   });
-  // Autoplay is usually blocked, so the cover asks for one tap; that tap starts the music and lifts the cover.
+  // The cover is shown on every visit (index.html adds .has-cover before first paint). The tap is the gesture that lets
+  // the music start on every browser, whether or not it would have allowed autoplay; a guest who muted earlier stays muted.
   const cover = $('#cover'), root = document.documentElement;
-  // Only a cover that was actually shown swings open; the page is usable while the doors move
   const liftCover = () => { if (!root.classList.contains('has-cover')) return; root.classList.remove('has-cover'); cover.classList.add('is-gone'); };
-  audio.addEventListener('play', liftCover);
-  cover.addEventListener('click', () => { audio.play().catch(() => {}); liftCover(); });
-  if (store.get('sound') !== 'off') {
-    audio.play().catch(() => { root.classList.add('has-cover'); });
-  }
+  cover.addEventListener('click', () => {
+    if (store.get('sound') !== 'off') audio.play().catch(() => {});
+    liftCover();
+  });
+  window.__coverReady = true;
   // Pause while the tab is hidden, resume only if it was playing
   let wasPlaying = false;
   document.addEventListener('visibilitychange', () => {

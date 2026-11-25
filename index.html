@@ -2,6 +2,11 @@
 <html lang="hi">
 <head>
 <meta charset="utf-8">
+<script>
+/* Show the tap-to-open doors from first paint; if the page script never loads, do not leave visitors stuck behind them */
+document.documentElement.classList.add('has-cover');
+setTimeout(function () { if (!window.__coverReady) document.documentElement.classList.remove('has-cover'); }, 8000);
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>चिनाब एवं सिद्धार्थ | शुभ विवाह</title>
 <meta name="description" content="चिनाब त्रिवेदी एवं सिद्धार्थ भट्टाचार्य - विवाह निमंत्रण">
@@ -41,7 +46,7 @@
 </header>
 
 <!-- The painted world behind the journey: first paint is a still, then the WebGL camera takes over -->
-<!-- Browsers block autoplay: this pair of doors (shown only then) turns the first tap into the music's start and swings open -->
+<!-- Browsers block autoplay: these doors turn the first tap into the music's start and swing open; shown on every visit -->
 <button class="cover" id="cover" type="button"><span class="cover__door cover__door--l" aria-hidden="true"></span><span class="cover__door cover__door--r" aria-hidden="true"></span><span class="cover__label"><span class="cover__ring" aria-hidden="true"></span><span class="cover__text" data-i18n="cover.tap"></span></span></button>
 
 <div class="world" id="world" aria-hidden="true">
