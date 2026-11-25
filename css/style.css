@@ -284,10 +284,10 @@ main { position: relative; z-index: 1; }
 
 /* Tap-to-open cover: two frosted, straight-edged doors hinged at the outer edges; the tap swings them slowly open.
    It sits above the header and nav, so they are behind the doors until they open. */
-.cover { display: none; position: fixed; inset: 0; z-index: 45; width: 100%; border: 0; padding: 0; cursor: pointer; color: var(--cream); font: inherit; perspective: 1800px; overflow: hidden; text-shadow: 0 1px 10px rgba(6, 10, 26, .7); -webkit-tap-highlight-color: transparent; transition: visibility 0s 2.7s; }
+.cover { display: none; position: fixed; inset: 0; z-index: 45; width: 100%; border: 0; padding: 0; cursor: pointer; color: var(--cream); font: inherit; perspective: 1800px; overflow: hidden; text-shadow: 0 1px 10px rgba(6, 10, 26, .7); -webkit-tap-highlight-color: transparent; transition: visibility 0s 2.9s; }
 .has-cover .cover, .cover.is-gone { display: block; }
 .has-cover { overflow: hidden; }
-.cover__door { position: absolute; top: 0; bottom: 0; width: 50%; background: rgba(19, 22, 46, .76); -webkit-backface-visibility: hidden; backface-visibility: hidden; transition: transform 2.6s cubic-bezier(.5, 0, .25, 1); }
+.cover__door { position: absolute; top: 0; bottom: 0; width: 50%; background: rgba(19, 22, 46, .5); -webkit-backface-visibility: hidden; backface-visibility: hidden; transition: transform 2.6s cubic-bezier(.5, 0, .25, 1); }
 /* The left door reaches 1px past the middle and the right door starts 1px later, so the join is seamless and never double-tinted */
 .cover__door--l { left: 0; width: calc(50% + 1px); transform-origin: 0 50%; }
 .cover__door--r { right: 0; width: calc(50% - 1px); transform-origin: 100% 50%; }
@@ -297,13 +297,17 @@ main { position: relative; z-index: 1; }
 .cover:focus-visible { outline: 2px solid var(--gold-light); outline-offset: -8px; }
 .cover.is-gone { visibility: hidden; pointer-events: none; }
 .cover.is-gone .cover__label { opacity: 0; }
-.cover.is-gone .cover__door--l { transform: rotateY(90deg); }
-.cover.is-gone .cover__door--r { transform: rotateY(-90deg); }
+.cover.is-gone .cover__door--l { animation: door-l 2.8s forwards; }
+.cover.is-gone .cover__door--r { animation: door-r 2.8s forwards; }
+/* Swing open to a narrow panel hinged at the screen edge, then carry on out past the edge: it never pops out of view */
+@keyframes door-l { 0% { transform: none; animation-timing-function: cubic-bezier(.45, 0, .25, 1); } 72% { transform: rotateY(72deg); animation-timing-function: cubic-bezier(.4, 0, .9, .6); } 100% { transform: translateX(-115%) rotateY(72deg); } }
+@keyframes door-r { 0% { transform: none; animation-timing-function: cubic-bezier(.45, 0, .25, 1); } 72% { transform: rotateY(-72deg); animation-timing-function: cubic-bezier(.4, 0, .9, .6); } 100% { transform: translateX(115%) rotateY(-72deg); } }
 @keyframes cover-pulse { to { box-shadow: 0 0 0 26px rgba(230, 198, 113, 0); } }
 @media (prefers-reduced-motion: reduce) {
   /* No 3D swing and no fade: the doors stay visible and simply slide apart, slowly */
   .cover__ring { animation: none; }
   .cover__door { transition: transform 2.6s cubic-bezier(.5, 0, .25, 1); }
+  .cover.is-gone .cover__door { animation: none; }
   .cover.is-gone .cover__door--l { transform: translateX(-100%); }
   .cover.is-gone .cover__door--r { transform: translateX(100%); }
 }
