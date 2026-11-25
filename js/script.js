@@ -499,7 +499,8 @@
   });
   // Autoplay is usually blocked, so the cover asks for one tap; that tap starts the music and lifts the cover.
   const cover = $('#cover'), root = document.documentElement;
-  const liftCover = () => { root.classList.remove('has-cover'); cover.classList.add('is-gone'); };
+  // Only a cover that was actually shown swings open; the page is usable while the doors move
+  const liftCover = () => { if (!root.classList.contains('has-cover')) return; root.classList.remove('has-cover'); cover.classList.add('is-gone'); };
   audio.addEventListener('play', liftCover);
   cover.addEventListener('click', () => { audio.play().catch(() => {}); liftCover(); });
   if (store.get('sound') !== 'off') {
