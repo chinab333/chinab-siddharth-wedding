@@ -26,6 +26,7 @@
   <nav class="nav__links" id="navLinks" aria-label="Sections">
     <a href="#home" data-i18n="nav.home"></a>
     <a href="#wedding" data-i18n="nav.wedding"></a>
+    <a href="#rituals" data-i18n="nav.rituals"></a>
     <a href="#rsvp" data-i18n="nav.rsvp"></a>
   </nav>
   <div class="lang" role="group" aria-label="Language">
@@ -127,6 +128,52 @@
       </div>
       <div class="winrow winrow--low" aria-hidden="true"></div>
     </div>
+  </section>
+
+  <section class="gallery" id="rituals" aria-labelledby="ritHead">
+    <div class="gallery__pin" id="galleryPin">
+      <div class="vine vine--top" aria-hidden="true"></div>
+      <div class="gallery__track" id="galleryTrack">
+        <header class="gallery__intro">
+          <h2 id="ritHead" data-i18n="rituals.heading"></h2>
+          <p data-i18n="rituals.intro"></p>
+          <p class="gallery__nudge"><span data-i18n="rituals.nudge"></span><i aria-hidden="true"></i></p>
+        </header>
+        <!-- ritual panels are rendered from content.js -->
+      </div>
+      <div class="gallery__lamps" id="lamps" aria-hidden="true"></div>
+      <div class="vine vine--bottom" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="route" aria-label="Kota to Jabalpur">
+    <svg class="route__map" id="routeMap" viewBox="0 0 1200 560" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+      <defs><linearGradient id="hillA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c6066"/><stop offset="1" stop-color="#2c6066" stop-opacity="0"/></linearGradient><linearGradient id="hillB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f4f58"/><stop offset="1" stop-color="#1f4f58" stop-opacity="0"/></linearGradient><linearGradient id="hillC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d4e72"/><stop offset="1" stop-color="#2d4e72" stop-opacity="0"/></linearGradient><filter id="rough" filterUnits="userSpaceOnUse" x="-1000" y="-50" width="3400" height="800"><feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="3" seed="6"/><feDisplacementMap in="SourceGraphic" scale="5"/></filter></defs>
+      <g filter="url(#rough)">
+        <!-- Aravalli ranges around Kota and Bundi -->
+        <path fill="url(#hillA)" d="M-1000 330c200-40 500-40 940-30 50-70 90-100 130-70 40-70 90-80 130-30 50-50 100-40 150 30 40-20 90-10 130 40 100 60 200 90 320 120v240H-1000z"/>
+        <path fill="url(#hillB)" d="M-1000 400c300-40 600-60 940-40 70-50 130-60 190-20 60-40 130-40 190 10 50-14 100-4 150 30 80 40 180 60 260 80v180H-1000z"/>
+        <!-- A Rajput fort and chhatri on the ridge -->
+        <g fill="#c69a60">
+          <path d="M168 232h96v-44h-16v-14h-14v14h-20v-26h-14v26h-14v-12h-18z"/><path d="M178 174c0-14 8-20 14-24 6 4 14 10 14 24zM232 162c0-12 6-16 12-20 6 4 12 8 12 20z"/>
+        </g>
+        <g fill="#7c5531"><path d="M182 206h10v14h-10zM204 206h10v14h-10zM226 206h10v14h-10zM246 206h10v14h-10z"/></g>
+        <!-- Vindhya country, the land between -->
+        <path fill="url(#hillC)" d="M260 560c120-90 270-120 370-90 80-30 170-30 240 10 100-34 200-30 400 30 200 30 500 20 800 10v160H260z"/>
+        <!-- The Narmada, with marble rocks at Jabalpur -->
+        <path fill="none" stroke="#6fb3a8" stroke-width="12" stroke-linecap="round" d="M560 524c110-26 190-6 290-30s170-62 400-56"/>
+        <path fill="none" stroke="#d6efe4" stroke-width="2.5" stroke-dasharray="26 18" d="M580 520c110-26 180-6 280-30s170-58 370-54"/>
+        <g fill="#efe9da"><path d="M880 452l18-46 16 10 14-30 18 22 12 44z"/><path d="M968 448l12-38 18 12 14-24 20 44z"/></g>
+        <g fill="#a9b6c6"><path d="M914 416l14-30 2 66-16 0zM998 422l14-34 2 60h-16z"/></g>
+      </g>
+      <path d="M216 240c130 16 160 90 290 110s240-40 330-10c50 16 70 42 90 56" fill="none" stroke="#f0e2c4" stroke-opacity=".28" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round"/>
+      <path class="route__line" id="routeLine" d="M216 240c130 16 160 90 290 110s240-40 330-10c50 16 70 42 90 56" fill="none" stroke="#e6c671" stroke-width="5" stroke-linecap="round"/>
+      <g fill="#b5361f" stroke="#f0e2c4" stroke-width="3"><circle cx="216" cy="240" r="10"/><circle id="routeEnd" cx="926" cy="396" r="10"/></g>
+      <text class="route__label" x="150" y="130" text-anchor="middle" data-i18n="route.from"></text>
+      <text class="route__label" x="926" y="350" text-anchor="middle" data-i18n="route.to"></text>
+      <text class="route__river-label" x="1110" y="424" text-anchor="middle" data-i18n="route.river"></text>
+    </svg>
+    <p class="route__line-text rv" data-i18n="route.line"></p>
   </section>
 
   <section class="finale" id="rsvp" aria-labelledby="rsvpHead">

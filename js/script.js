@@ -21,12 +21,30 @@
     measure();
     addEventListener('scroll', () => requestAnimationFrame(tick), { passive: true });
   }
+  const isHorizontalGallery = () => !calm && innerWidth > 900 && innerWidth > innerHeight;
 
   /* ---------- Language ---------- */
   const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch { /* private mode */ } } };
   let lang = new URLSearchParams(location.search).get('lang') || store.get('lang') || DATA.config.defaultLang;
   if (!DATA[lang]) lang = DATA.config.defaultLang;
   const t = key => key.split('.').reduce((o, k) => (o == null ? o : o[k]), DATA[lang]) ?? '';
+
+  function renderRituals() {
+    const track = $('#galleryTrack');
+    $$('.ritual', track).forEach(n => n.remove());
+    t('rituals.items').forEach((r, i) => {
+      const el = document.createElement('article');
+      el.className = 'ritual';
+      el.innerHTML = `<img class="ritual__art" src="assets/art/m${i + 1}.png" alt="" width="760" height="967" loading="lazy" decoding="async">
+        <div class="ritual__text"><p class="ritual__n"></p><h3 class="ritual__title"></h3><p class="ritual__desc"></p></div>`;
+      $('.ritual__art', el).alt = r.alt;
+      $('.ritual__n', el).textContent = r.n;
+      $('.ritual__title', el).textContent = r.title;
+      $('.ritual__desc', el).textContent = r.text;
+      track.append(el);
+    });
+    observeRituals();
+  }
 
   /* Schedule: a borderless table, one block per date; text is filled in by applyLanguage via data-i18n */
   function buildEvents() {
@@ -54,6 +72,7 @@
     $$('[data-i18n-alt]').forEach(el => { el.alt = t(el.dataset.i18nAlt); });
     $$('[data-i18n-label]').forEach(el => el.setAttribute('aria-label', t(el.dataset.i18nLabel)));
     $$('[data-lang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+    renderRituals();
     syncRsvpCopy();
     if (refreshLayout) measure();
   }
@@ -264,18 +283,28 @@
   /* ---------- Scroll machinery: one rAF, one read of scroll per frame ---------- */
   const journey = $('#home'), openingText = $('#openingText'), hintEl = $('#hint'), fortTitle = $('#fortTitle'), birds = $('#birds');
   const world = $('#world'), wallBody = $('.wall__body'), nav = $('#nav');
-  const facade = $('#facade');
-  let stage = null, smooth = 0, vw = innerWidth, vh = innerHeight, journeyMax = 1, journeyTop = 0;
+  const gallerySection = $('#rituals'), galleryTrack = $('#galleryTrack'), lamps = $('#lamps');
+  const routeMap = $('#routeMap'), routeLine = $('#routeLine'), facade = $('#facade');
+  let stage = null, smooth = 0, vw = innerWidth, vh = innerHeight, galleryMax = 0, journeyMax = 1, journeyTop = 0, galleryTop = 0;
   const drifters = [];
 
   function measure() {
     vw = innerWidth; vh = innerHeight;
     journeyTop = journey.offsetTop;
     journeyMax = Math.max(1, journey.offsetHeight - vh);
+    if (isHorizontalGallery()) {
+      gallerySection.style.height = '';
+      galleryMax = Math.max(0, galleryTrack.scrollWidth - vw);
+      gallerySection.style.height = `${galleryMax + vh}px`;
+    } else {
+      gallerySection.style.height = ''; galleryTrack.style.transform = ''; galleryMax = 0;
+    }
+    galleryTop = gallerySection.getBoundingClientRect().top + scrollY;
     if (stage) stage.resize(vw, Math.max(vh, world.clientHeight));
+    if (routeLine.getTotalLength) routeMap.style.setProperty('--len', routeLine.getTotalLength().toFixed(1));
   }
 
-  let lastNow = performance.now(), slowFrames = 0, sampled = 0;
+  let lastLamp = -1, lastNow = performance.now(), slowFrames = 0, sampled = 0;
   function tick(now) {
     const y = scrollY;
     nav.classList.toggle('is-scrolled', y > vh * .25);
@@ -310,6 +339,14 @@
       }
     }
 
+    /* Ritual gallery walks sideways */
+    if (galleryMax > 0) {
+      const gp = clamp((y - galleryTop) / galleryMax);
+      galleryTrack.style.transform = `translate3d(${(-gp * galleryMax).toFixed(1)}px,0,0)`;
+      const lit = Math.floor(gp * 8.6 + .25);
+      if (lit !== lastLamp) { $$('.lamp', lamps).forEach((l, i) => l.classList.toggle('is-on', i < lit)); lastLamp = lit; }
+    }
+
     /* Slow architectural drift, only for what's on screen */
     for (const d of drifters) {
       if (!d.on) continue;
@@ -318,16 +355,29 @@
       d.el.style.translate = `0 ${off.toFixed(1)}px`;
     }
 
+    /* The route draws itself */
+    const rr = routeMap.getBoundingClientRect();
+    if (rr.bottom > 0 && rr.top < vh) routeMap.style.setProperty('--p', ease(seg(vh - rr.top, vh * .2, rr.height + vh * .45)).toFixed(3));
+
     if (!calm) requestAnimationFrame(tick);
   }
 
   /* ---------- Things that switch on once ---------- */
+  let ritualObserver = null;
+  function observeRituals() {
+    if (!ritualObserver) return;
+    $$('.ritual').forEach(r => ritualObserver.observe(r));
+  }
   function buildDecor() {
     $$('.winrow').forEach(row => { for (let i = 0; i < 7; i++) { const w = document.createElement('div'); w.className = 'win'; w.style.transitionDelay = `${i * .1}s`; row.append(w); } });
+    for (let i = 0; i < 8; i++) { const l = document.createElement('div'); l.className = 'lamp'; lamps.append(l); }
   }
   function setupObservers() {
     const once = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); once.unobserve(e.target); } }), { threshold: .25 });
     $$('.rv').forEach(el => once.observe(el));
+
+    ritualObserver = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); ritualObserver.unobserve(e.target); } }), { threshold: .2 });
+    observeRituals();
 
     // Facade: the small windows wake first, then each home's jharokha
     const facadeIO = new IntersectionObserver(es => es.forEach(e => {
@@ -354,7 +404,7 @@
     sections.forEach(s => spy.observe(s));
   }
   function currentSection() {
-    const all = ['#home', '.wall', '#families', '#rsvp'].map(s => $(s));
+    const all = ['#home', '.wall', '#families', '#rituals', '.route', '#rsvp'].map(s => $(s));
     return all.filter(s => s.getBoundingClientRect().top <= vh * .5).pop() || all[0];
   }
 
