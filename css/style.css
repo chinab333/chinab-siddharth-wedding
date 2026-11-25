@@ -287,7 +287,7 @@ main { position: relative; z-index: 1; }
 .cover { display: none; position: fixed; inset: 0; z-index: 45; width: 100%; border: 0; padding: 0; cursor: pointer; color: var(--cream); font: inherit; perspective: 1800px; overflow: hidden; text-shadow: 0 1px 10px rgba(6, 10, 26, .7); -webkit-tap-highlight-color: transparent; transition: visibility 0s 2.7s; }
 .has-cover .cover, .cover.is-gone { display: block; }
 .has-cover { overflow: hidden; }
-.cover__door { position: absolute; top: 0; bottom: 0; width: 50%; background: rgba(19, 22, 46, .76); backface-visibility: hidden; transition: transform 2.6s cubic-bezier(.5, 0, .25, 1); }
+.cover__door { position: absolute; top: 0; bottom: 0; width: 50%; background: rgba(19, 22, 46, .76); -webkit-backface-visibility: hidden; backface-visibility: hidden; transition: transform 2.6s cubic-bezier(.5, 0, .25, 1); }
 /* The left door reaches 1px past the middle and the right door starts 1px later, so the join is seamless and never double-tinted */
 .cover__door--l { left: 0; width: calc(50% + 1px); transform-origin: 0 50%; }
 .cover__door--r { right: 0; width: calc(50% - 1px); transform-origin: 100% 50%; }
@@ -297,12 +297,13 @@ main { position: relative; z-index: 1; }
 .cover:focus-visible { outline: 2px solid var(--gold-light); outline-offset: -8px; }
 .cover.is-gone { visibility: hidden; pointer-events: none; }
 .cover.is-gone .cover__label { opacity: 0; }
-.cover.is-gone .cover__door--l { transform: rotateY(96deg); }
-.cover.is-gone .cover__door--r { transform: rotateY(-96deg); }
+.cover.is-gone .cover__door--l { transform: rotateY(90deg); }
+.cover.is-gone .cover__door--r { transform: rotateY(-90deg); }
 @keyframes cover-pulse { to { box-shadow: 0 0 0 26px rgba(230, 198, 113, 0); } }
 @media (prefers-reduced-motion: reduce) {
+  /* No 3D swing and no fade: the doors stay visible and simply slide apart, slowly */
   .cover__ring { animation: none; }
-  .cover__door { transition: opacity .6s ease; }
-  .cover.is-gone .cover__door--l, .cover.is-gone .cover__door--r { transform: none; opacity: 0; }
-  .cover { transition-delay: .6s; }
+  .cover__door { transition: transform 2.6s cubic-bezier(.5, 0, .25, 1); }
+  .cover.is-gone .cover__door--l { transform: translateX(-100%); }
+  .cover.is-gone .cover__door--r { transform: translateX(100%); }
 }
