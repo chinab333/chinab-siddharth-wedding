@@ -497,12 +497,14 @@
   soundBtn.addEventListener('click', () => {
     if (audio.paused) { store.set('sound', 'on'); audio.play().catch(() => {}); } else { store.set('sound', 'off'); audio.pause(); }
   });
-  // The cover is shown on every visit (index.html adds .has-cover before first paint). The tap is the gesture that lets
-  // the music start on every browser, whether or not it would have allowed autoplay; a guest who muted earlier stays muted.
+  // The cover is shown on every visit (index.html adds .has-cover before first paint). Tapping it is an explicit "open with
+  // music": it always starts the music, even if the guest muted on an earlier visit (the speaker button mutes again).
   const cover = $('#cover'), root = document.documentElement;
   const liftCover = () => { if (!root.classList.contains('has-cover')) return; root.classList.remove('has-cover'); cover.classList.add('is-gone'); };
   cover.addEventListener('click', () => {
-    if (store.get('sound') !== 'off') audio.play().catch(() => {});
+    store.set('sound', 'on');
+    // play() has to be called inside this tap; if the first attempt is refused, reload the source and try once more
+    audio.play().catch(() => { audio.load(); return audio.play(); }).catch(() => {});
     liftCover();
   });
   window.__coverReady = true;
